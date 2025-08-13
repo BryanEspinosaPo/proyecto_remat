@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\ReporteCliController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('landing');
-});
+// ... otras rutas
+
+Route::get('/reporte', [ReporteCliController::class, 'reporte']);
