@@ -16,4 +16,9 @@ class Reporte extends Model
 
     // Puedes especificar las columnas "fillable" si es necesario.
     // protected $fillable = ['columna1', 'columna2', 'etc'];
+
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
 }

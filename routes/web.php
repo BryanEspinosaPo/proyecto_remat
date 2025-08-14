@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\ReporteCliController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReporteCliController;
 
-// ... otras rutas
+Route::get('/reporte/{id}', [ReporteCliController::class, 'show'])
+    ->whereNumber('id')
+    ->name('reporte.usuario');
 
-Route::get('/reporte', [ReporteCliController::class, 'reporte']);
+Route::get('/logout', function () {
+    return redirect('/'); // o donde quieras redirigir
+})->name('logout');
