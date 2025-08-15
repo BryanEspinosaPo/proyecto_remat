@@ -1,0 +1,371 @@
+/* ESTILOS BANNER */
+
+.banner-home {
+    background-image: url('../../images/home/fondo-banner.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 981px;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.banner-home .contenedor-textos-imagen {
+    display: flex;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    margin-left: 90px;
+}
+
+
+.banner-home .contenedor-textos-imagen .contenedor-textos h1 {
+    color: #214220;
+    font-size: 40px;
+    line-height: 45px;
+    font-weight: 700;
+    width: 100%;
+    max-width: 515px;
+    margin-bottom: 24px;
+}
+
+.banner-home .contenedor-textos-imagen .contenedor-textos p {
+    color: #000000;
+    font-size: 16px;
+    width: 100%;
+    max-width: 560px;
+    font-weight: 600;
+}
+
+.banner-home .contenedor-textos-imagen .contenedor-textos .contenedor-boton {
+    margin-top: 60px;
+}
+
+.banner-home .contenedor-textos-imagen .contenedor-textos .contenedor-boton a {
+    background: #214220;
+    color: #FFFFFF;
+    font-size: 20px;
+    border-radius: 11px;
+    padding: 17px 39px;
+}
+
+.banner-home .contenedor-textos-imagen figure {
+    position: absolute;
+    top: 70%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.banner-home .contenedor-textos-imagen figure img {
+    max-width: none;
+}
+
+.banner-home .contenedor-textos-imagen figure img.image-banner-desk {
+    display: block;
+}
+
+.banner-home .contenedor-textos-imagen figure img.image-banner-mobile {
+    display: none;
+}
+
+
+@media (max-width: 767px) {
+    .banner-home {
+        height: 581px;
+    }
+
+    .banner-home .contenedor-textos-imagen figure {
+        top: 90%;
+        width: 100%;
+    }
+
+    .banner-home .contenedor-textos-imagen figure img.image-banner-desk {
+        display: none;
+    }
+
+    .banner-home .contenedor-textos-imagen figure img.image-banner-mobile {
+        display: block;
+        width: 100%;
+    }
+
+    .banner-home .contenedor-textos-imagen {
+        align-items: flex-start;
+        margin-left: 0px;
+    }
+
+    .banner-home .contenedor-textos-imagen .contenedor-textos {
+        margin: 16px 16px 0px 16px;
+
+    }
+
+    .banner-home .contenedor-textos-imagen .contenedor-textos h1 {
+        font-size: 28.14px;
+        line-height: 32px;
+    }
+
+}
+
+/* FIN BANNER */
+
+
+/* ESTILOS CARDS POR QUE RECICLAR */
+.por-que-reciclar-home {
+    padding: 40px 0px;
+}
+
+.por-que-reciclar-home .contenedor-titulo-cards .contenedor-titulo h2 {
+    font-size: 40px;
+    list-style: 60px;
+    color: #214220;
+    font-weight: 700;
+    text-align: center;
+}
+
+.por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards {
+    display: flex;
+    justify-content: center;
+    gap: 33px;
+    max-width: 1159px;
+    margin: 42px auto auto auto;
+}
+
+.por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards .card-por-card {
+    background: #E5F298;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 262px;
+}
+
+.por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards .card-por-card h3 {
+    color: #214220;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .por-que-reciclar-home {
+        padding: 360px 0px 18px 0px;
+    }
+
+    .por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 11px;
+        width: 100%;
+        max-width: none;
+    }
+
+    .por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards .card-por-card {
+        max-width: none;
+    }
+
+    .por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards .card-por-card h3 {
+               font-size: 18px;
+        line-height: 20px;
+    }
+}
+
+/* FIN ESTILOS CARDS POR QUE RECICLAR */
+
+
+
+
+/* ESTILOS PASOS */
+
+.paso-a-paso {
+    padding: 93px 0px;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-linea-informativa {
+    background: #214220;
+    padding: 4px;
+    margin: auto;
+    width: 100%;
+    max-width: 1218px;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-linea-informativa p {
+    color: #FFFFFF;
+    font-size: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso {
+    display: flex;
+    justify-content: center;
+    gap: 43px;
+    margin: auto;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 29px;
+    margin-bottom: 15px;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-numerador {
+    background: #214220;
+    padding: 4px;
+    border-radius: 100px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-numerador p {
+    color: #FFFFFF;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-texto p {
+    color: #214220;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+@media (max-width: 767px) {
+    .paso-a-paso {
+        padding: 0;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-linea-informativa {
+        padding: 8px;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-linea-informativa p {
+        font-size: 24px;
+        line-height: 26px;
+        max-width: 295px;
+        margin: auto;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso {
+        flex-direction: column;
+        width: 100%;
+        max-width: 284px;
+        gap: 15px;
+        margin: 29px auto auto auto;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso figure img {
+        display: none;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-numerador {
+        width: 30px;
+        height: 30px;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-numerador p {
+        font-size: 20px;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen .contenedor-texto p {
+        font-size: 18px;
+    }
+
+    .paso-a-paso .contenedor-general-paso .contenedor-cards-paso-paso .contenedor-cada-paso .contenedor-texto-imagen {
+        margin-top: 0px;
+        margin-bottom: 4px;
+
+    }
+}
+
+/* FIN ESTILOS PASOS */
+
+
+
+/*  ESTILOS PREGUNTAS */
+
+.preguntas-frecuentes {
+    padding: 0px 0px 60px 0px;
+}
+
+.preguntas-frecuentes .container {
+    max-width: 1209px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.preguntas-frecuentes .contenedor-titulo-preguntas h2 {
+    color: #214220;
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones {
+    margin-top: 15px;
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-item {
+    margin-bottom: 15px;
+    border: none;
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-header button {
+    background: #FFFFFF;
+    padding: 8px 32px;
+    border-radius: 9px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-header button[aria-expanded="true"] {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-header button span {
+    font-size: 16px;
+    color: #214220;
+    font-weight: 700;
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-panel {
+    background: #FFFFFF;
+    padding: 8px 45px;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+}
+
+.preguntas-frecuentes .contenedor-general-acordeones .accordion .accordion-panel p {
+    font-size: 16px;
+    color: #214220;
+}
+
+@media (max-width: 767px) {
+    .preguntas-frecuentes {
+        padding: 20px 0px 60px 0px;
+    }
+
+    .preguntas-frecuentes .contenedor-titulo-preguntas h2 {
+        font-size: 20px;
+    }
+}
+
+
+/* FIN ESTILOS PREGUNTAS */
+
+
+
+/* COMPONENTE FINAL */
+
+.imagen-final figure img {
+    display: block;
+    height: auto;
+    width: 100%;
+}
+
+/* FIN COMPONENTE FINAL */
