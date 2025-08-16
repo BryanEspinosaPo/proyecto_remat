@@ -26,10 +26,12 @@
         <template x-for="day in daysInMonth" :key="day">
             <div
                 @click="selectDate(day)"
-                class="cursor-pointer rounded p-1 hover:bg-green-100"
+                class="cursor-pointer rounded p-1"
                 :class="{
                     'bg-green-200 font-bold': isToday(day),
-                    'bg-green-500 text-white': selectedDate === formatDate(day)
+                    'bg-green-500 text-white': selectedDate === formatDate(day),
+                    'hover:bg-green-100': isDateSelectable(day),
+                    'text-gray-300 cursor-not-allowed': !isDateSelectable(day)
                 }"
                 x-text="day"
             ></div>
@@ -125,17 +127,45 @@ function calendar() {
         },
 
         isToday(day) {
-            const today = new Date();
+            const todayColombia = this.getColombiaTime();
             return (
-                day === today.getDate() &&
-                this.currentMonth === today.getMonth() &&
-                this.currentYear === today.getFullYear()
+                day === todayColombia.getDate() &&
+                this.currentMonth === todayColombia.getMonth() &&
+                this.currentYear === todayColombia.getFullYear()
             );
         },
 
+        getColombiaTime() {
+            // Crear fecha con la zona horaria de Colombia
+            const options = { timeZone: 'America/Bogota' };
+            const colombiaTime = new Date().toLocaleString('en-US', options);
+            return new Date(colombiaTime);
+        },
+
+        isDateSelectable(day) {
+            const selectedDate = new Date(this.currentYear, this.currentMonth, day);
+            selectedDate.setHours(0, 0, 0, 0);
+
+            const todayColombia = this.getColombiaTime();
+            // Creamos la fecha mínima (día siguiente)
+            const tomorrowColombia = new Date(todayColombia);
+            tomorrowColombia.setDate(todayColombia.getDate() + 1);
+            tomorrowColombia.setHours(0, 0, 0, 0);
+
+            return selectedDate >= tomorrowColombia;
+        },
+
         selectDate(day) {
+            if (!this.isDateSelectable(day)) {
+                alert('Solo puedes agendar a partir del día siguiente (Hora Colombia)');
+                return;
+            }
             this.selectedDate = this.formatDate(day);
             this.updateDateTime();
+            // Reset time if the date changes
+            if (this.selectedTime) {
+                this.validateTimeRange();
+            }
         },
 
         formatDate(day) {
@@ -144,13 +174,50 @@ function calendar() {
             return `${this.currentYear}-${m}-${d}`;
         },
 
-        updateDateTime() {
+        validateTimeRange() {
+            if (!this.selectedDate || !this.selectedTime) return;
+
+            const [startTime, endTime] = this.selectedTime.split(' - ');
+            const [startHours, startMinutes] = startTime.split(':');
+            const [endHours, endMinutes] = endTime.split(':');
+
+            // Crear fecha con zona horaria de Colombia para el inicio y fin del rango
+            const selectedStartDateTime = new Date(this.selectedDate);
+            selectedStartDateTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+
+            const selectedEndDateTime = new Date(this.selectedDate);
+            selectedEndDateTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+
+            const nowColombia = this.getColombiaTime();
+
+            // Si es el mismo día, validar el rango horario completo
+            if (this.formatDate(nowColombia.getDate()) === this.selectedDate) {
+                // Si la hora actual es posterior a la hora de fin del rango
+                if (nowColombia > selectedEndDateTime) {
+                    alert('Este horario ya no está disponible para hoy');
+                    this.selectedTime = '';
+                    this.updateDateTime();
+                    return;
+                }
+
+                // Si estamos dentro del rango horario (entre inicio y fin)
+                if (nowColombia >= selectedStartDateTime && nowColombia <= selectedEndDateTime) {
+                    alert('Este horario está disponible sin embargo si no podemos recoger la basura en este horario, se reprogramará automáticamente, para el dia de mañana en la misma franja horaria.');
+                    return;
+                }
+            }
+        },        updateDateTime() {
             if (this.isValid()) {
-                const timeRange = this.selectedTime.split(' - ')[0];
-                this.fullDateTime = `${this.selectedDate} ${timeRange}`;
-                window.dispatchEvent(new CustomEvent('datetime-selected', {
-                    detail: this.fullDateTime
-                }));
+                this.validateTimeRange();
+                if (this.selectedTime) {
+                    const timeRange = this.selectedTime.split(' - ')[0];
+                    this.fullDateTime = `${this.selectedDate} ${timeRange}`;
+                    window.dispatchEvent(new CustomEvent('datetime-selected', {
+                        detail: this.fullDateTime
+                    }));
+                } else {
+                    this.fullDateTime = '';
+                }
             } else {
                 this.fullDateTime = '';
             }

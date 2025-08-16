@@ -14,10 +14,10 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto">
             </a>
             <div class="hidden md:flex  space-x-6 text-sm font-medium">
-                <a href="#" class="text-gray-600 hover:text-green-700 transition">Agendamiento</a>
+                <a href="/" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
                 <a href="#" class="text-gray-600 hover:text-green-700 transition">Reporte Cliente</a>
                 <a href="#" class="text-gray-600 hover:text-green-700 transition">Puntos</a>
-                <a href="#" class="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition">Ingresar</a>
+                <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Perfil</a>
             </div>
         </div>
     </nav>
@@ -68,17 +68,11 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1" >Zona</label>
-                        <input type="text" name="zona" class="border @error('zona') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Norte" value="{{ old('zona') }}" required>
-                        @error('zona')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                        <input type="text" name="zona" class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Norte" value="{{ old('zona') }}">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1" >Código</label>
-                        <input type="text" name="codigo" class="border @error('codigo') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 110111" value="{{ old('codigo') }}" required>
-                        @error('codigo')
-                            <span class="text-red-500 text-sm">{{ $message }}</span>
-                        @enderror
+                        <label class="block text-sm font-medium text-gray-700 mb-1" >Código Postal</label>
+                        <input type="text" name="codigo" class="border  border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 110111" value="{{ old('codigo') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
