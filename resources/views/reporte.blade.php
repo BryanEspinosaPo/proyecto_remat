@@ -18,7 +18,9 @@
             </a>
             <div class="flex items-center gap-2">
                 <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Agendamiento</a>
+                @if(isset($usuario->id))
                 <a href="{{ route('reporte.usuario', ['id' => $usuario->id]) }}" class="text-gray-600 hover:text-indigo-600 mx-2">Reporte Cliente</a>
+                @endif
                 <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Puntos</a>
 
                 <a href="{{ route('logout') }}"
@@ -34,32 +36,31 @@
     </nav>
 
     <!-- Header Usuario -->
-    <header class="bg-lime-100 p-6">
-        <div class="max-w-7xl mx-auto flex flex-col gap-4">
+    <header class="bg-lime-100 p-12">
+        <div class="max-w-2xl mx-auto flex flex-col gap-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full"></div>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full"><img src="{{ asset('images/avatar.png') }}" alt="Logo" class="h-23 w-auto" /> </div>
                     <div>
                         <h1 class="font-bold text-xl">{{ $usuario->nombre ?? $usuario->name ?? 'Usuario' }}</h1>
-                        <span class="text-sm text-gray-600">Puntos disponibles: {{ $puntosAcumulados }}</span>
+                        <span class="text-sm text-gray-600">Puntos disponibles: {{ $puntosAcumulados ?? 0 }}</span>
                     </div>
                 </div>
-                <a href="#historialModal" onclick="openModal('historialModal')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ver Resultados</a>
             </div>
 
-            <!-- Navegación por ID de usuario -->
             @php
-            $prevId = ($usuario->id ?? 1) > 1 ? ($usuario->id - 1) : 1;
-            $nextId = ($usuario->id ?? 1) + 1;
+            $uid = $usuario->id ?? 1;
+            $prevId = $uid > 1 ? ($uid - 1) : 1;
+            $nextId = $uid + 1;
             @endphp
             <div class="flex flex-wrap items-center gap-3">
                 <a href="{{ route('reporte.usuario', ['id' => $prevId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">◀ Anterior</a>
-                <span class="text-sm text-gray-700">Cliente actual: <strong>#{{ $usuario->id }}</strong></span>
+                <span class="text-sm text-gray-700">Cliente actual: <strong>#{{ $uid }}</strong></span>
                 <a href="{{ route('reporte.usuario', ['id' => $nextId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">Siguiente ▶</a>
 
                 <div class="flex items-center gap-2 ml-2">
                     <label for="jumpUserId" class="text-sm text-gray-600">Ir al ID:</label>
-                    <input id="jumpUserId" type="number" min="1" value="{{ $usuario->id }}" class="w-24 border rounded px-2 py-1">
+                    <input id="jumpUserId" type="number" min="1" value="{{ $uid }}" class="w-24 border rounded px-2 py-1">
                     <button type="button" onclick="goToUser()" class="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-700">Ir</button>
                 </div>
             </div>
@@ -75,12 +76,12 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
             <div class="border p-4 rounded">
-                <p class="text-2xl font-bold">{{ $pesoRecolectado }} kg</p>
+                <p class="text-2xl font-bold">{{ $pesoRecolectado ?? 0 }} kg</p>
                 <span class="text-green-600">+50</span>
                 <p class="text-sm text-gray-600 mt-1">Peso Recolectado (kg)</p>
             </div>
             <div class="border p-4 rounded">
-                <p class="text-2xl font-bold">{{ $puntosAdquiridos }}</p>
+                <p class="text-2xl font-bold">{{ $puntosAdquiridos ?? 0 }}</p>
                 <span class="text-green-600">+30</span>
                 <p class="text-sm text-gray-600 mt-1">Puntos Adquiridos</p>
             </div>
@@ -96,25 +97,54 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
             <div class="border p-4 rounded">
-                <p class="text-2xl font-bold">{{ $pesoRegistrado }} kg</p>
+                <p class="text-2xl font-bold">{{ $pesoRegistrado ?? 0 }} kg</p>
                 <span class="text-green-600">+2 kg</span>
                 <p class="text-sm text-gray-600 mt-1">Peso Registrado</p>
             </div>
             <div class="border p-4 rounded">
-                <p class="text-2xl font-bold">{{ $puntosAcumulados }}</p>
+                <p class="text-2xl font-bold">{{ $puntosAcumulados ?? 0 }}</p>
                 <span class="text-green-600">+30</span>
                 <p class="text-sm text-gray-600 mt-1">Puntos Acumulados</p>
             </div>
-            <div class="border p-4 rounded">
-                <p class="text-sm text-gray-600 mb-2">Progreso de Peso</p>
-                <div class="h-32 bg-green-200 rounded flex items-end justify-around space-x-2">
-                    @foreach ($bars as $h)
-                    <div class="w-4 bg-green-700 rounded-t" style="height: {{ $altura ?? 0 }}%"></div>
+
+            <!-- Progreso de peso con barras seguras (Método JavaScript) -->
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center min-h-[320px]">
+                <h2 class="text-xl font-semibold text-gray-800">Progreso de Peso</h2>
+                <p class="text-sm text-gray-500 mb-4">Peso total recolectado por mes (kg)</p>
+
+                <!-- Contenedor del Gráfico (con altura fija h-56) -->
+                <div class="w-full h-56 flex items-end justify-around border-b border-gray-200 px-2">
+
+                    @forelse ($serie ?? [] as $item)
+                    <!-- Contenedor para la columna (suma + barra) -->
+                    <div class="flex flex-col items-center text-center w-12">
+                        <!-- Etiqueta de la suma -->
+                        <span class="text-sm font-semibold text-gray-700">{{ round($item['total_peso'] ?? 0, 1) }}</span>
+
+                        <!-- La Barra. NOTA: Usamos data-height en lugar de style -->
+                        <div class="mt-1 w-8 bg-green-600 hover:bg-green-500 rounded-t-md transition-all duration-500 ease-out"
+                            data-height="{{ $item['height_percentage'] ?? 0 }}"
+                            title="{{ round($item['total_peso'] ?? 0, 1) }} kg">
+                        </div>
+                    </div>
+                    @empty
+                    <div class="flex items-center justify-center h-full w-full">
+                        <p class="text-gray-500">No hay datos de peso para mostrar.</p>
+                    </div>
+                    @endforelse
+                </div>
+
+                <!-- Contenedor para las etiquetas de los meses -->
+                <div class="w-full h-8 flex items-start justify-around px-2 pt-1">
+                    @foreach ($serie ?? [] as $item)
+                    <div class="w-12 text-center">
+                        <span class="text-xs font-medium text-gray-500 uppercase">
+                            {{ \Carbon\Carbon::createFromFormat('Y-m', $item['ym'])->translatedFormat('M') }}
+                        </span>
+                    </div>
                     @endforeach
                 </div>
             </div>
-
-        </div>
     </section>
 
     <!-- Modal Historial -->
@@ -135,9 +165,9 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white">
-                        @forelse ($reportes as $reporte)
+                        @forelse ($reportes ?? [] as $reporte)
                         <tr class="border-t">
-                            <td class="py-2 px-4">{{ $reporte->id }}</td>
+                            <td class="py-2 px-4">{{ $reporte->id ?? '—' }}</td>
                             <td class="py-2 px-4">{{ $reporte->cod_residuo ?? '—' }}</td>
                             <td class="py-2 px-4">{{ $reporte->fecha_solicitud ?? '—' }}</td>
                             <td class="py-2 px-4">{{ $reporte->peso ?? '—' }}</td>
@@ -164,9 +194,9 @@
         <div class="bg-white p-6 rounded shadow-lg max-w-2xl w-full">
             <h2 class="text-xl font-bold mb-4">Historial de Métricas</h2>
             <ul class="list-disc ml-6 space-y-1">
-                <li>Peso inicial: {{ $pesoRegistrado }} kg</li>
-                <li>Puntos acumulados: {{ $puntosAcumulados }}</li>
-                <li>Peso recolectado total: {{ $pesoRecolectado }} kg</li>
+                <li>Peso inicial: {{ $pesoRegistrado ?? 0 }} kg</li>
+                <li>Puntos acumulados: {{ $puntosAcumulados ?? 0 }}</li>
+                <li>Peso recolectado total: {{ $pesoRecolectado ?? 0 }} kg</li>
             </ul>
             <div class="text-right mt-4">
                 <button onclick="closeModal('metricasModal')" class="bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
@@ -174,6 +204,7 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
         function openModal(id) {
             const el = document.getElementById(id);
@@ -191,9 +222,28 @@
             const input = document.getElementById('jumpUserId');
             const id = parseInt(input.value, 10);
             if (!isNaN(id) && id > 0) {
+                // Asegúrate de que esta URL sea la correcta para tu estructura de rutas.
                 window.location.href = "{{ url('/reporte') }}/" + id;
             }
         }
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Selecciona todas las barras que tienen el atributo 'data-height'.
+            const bars = document.querySelectorAll('[data-height]');
+
+            // 2. Un pequeño retraso para que la animación de crecimiento sea visible.
+            setTimeout(() => {
+                bars.forEach(bar => {
+                    // 3. Lee el valor del porcentaje desde el atributo.
+                    let heightPercentage = parseFloat(bar.dataset.height) || 0;
+
+                    // 4. Asegura que el valor esté entre 0 y 100.
+                    heightPercentage = Math.max(0, Math.min(100, heightPercentage));
+
+                    // 5. Asigna el valor al estilo 'height' de la barra. ¡Esta es la magia!
+                    bar.style.height = heightPercentage + '%';
+                });
+            }, 100); // 100ms de retraso
+        });
     </script>
 
 </body>
