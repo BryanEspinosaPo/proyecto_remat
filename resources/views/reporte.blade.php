@@ -57,12 +57,12 @@
                 <a href="{{ route('reporte.usuario', ['id' => $prevId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">◀ Anterior</a>
                 <span class="text-sm text-gray-700">Cliente actual: <strong>#{{ $uid }}</strong></span>
                 <a href="{{ route('reporte.usuario', ['id' => $nextId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">Siguiente ▶</a>
--->
+
             <div class="flex items-center gap-2 ml-2">
                 <label for="jumpUserId" class="text-sm text-gray-600">Ir al ID:</label>
                 <input id="jumpUserId" type="number" min="1" value="{{ $uid }}" class="w-24 border rounded px-2 py-1">
                 <button type="button" onclick="goToUser()" class="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-700">Ir</button>
-            </div>
+            </div>-->
         </div>
         </div>
     </header>

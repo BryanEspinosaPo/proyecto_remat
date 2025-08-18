@@ -26,7 +26,7 @@ class ReporteCliController extends Controller
             ->orderBy('fecha_solicitud', 'desc')
             ->get();
 
-        // 3. Calcula las métricas.
+        //  Calcula las métricas.
         $pesoRecolectado = (float) $reportes->sum('peso');
         $puntosAdquiridos = (int) round($pesoRecolectado * 0.8);
         $pesoRegistrado = (float) ($reportes->first()->peso ?? 0);
@@ -54,16 +54,14 @@ class ReporteCliController extends Controller
             return $item;
         });
 
-        // 7. Retorna la vista con los datos ya procesados.
-        return view('reporte', [ // Asegúrate de que 'reporte' es el nombre correcto de tu vista.
+
+        return view('reporte', [
             'usuario' => $usuario,
             'reportes' => $reportes,
             'pesoRecolectado' => $pesoRecolectado,
             'puntosAdquiridos' => $puntosAdquiridos,
             'pesoRegistrado' => $pesoRegistrado,
             'puntosAcumulados' => $puntosAcumulados,
-            // Convertimos la colección final a un array para que la vista
-            // pueda usar la sintaxis $item['...'] de forma segura.
             'serie' => $serie->toArray(),
         ]);
     }
