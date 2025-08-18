@@ -53,21 +53,21 @@
             $prevId = $uid > 1 ? ($uid - 1) : 1;
             $nextId = $uid + 1;
             @endphp
-            <div class="flex flex-wrap items-center gap-3">
+            <!--    <div class="flex flex-wrap items-center gap-3">
                 <a href="{{ route('reporte.usuario', ['id' => $prevId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">◀ Anterior</a>
                 <span class="text-sm text-gray-700">Cliente actual: <strong>#{{ $uid }}</strong></span>
                 <a href="{{ route('reporte.usuario', ['id' => $nextId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">Siguiente ▶</a>
-
-                <div class="flex items-center gap-2 ml-2">
-                    <label for="jumpUserId" class="text-sm text-gray-600">Ir al ID:</label>
-                    <input id="jumpUserId" type="number" min="1" value="{{ $uid }}" class="w-24 border rounded px-2 py-1">
-                    <button type="button" onclick="goToUser()" class="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-700">Ir</button>
-                </div>
+-->
+            <div class="flex items-center gap-2 ml-2">
+                <label for="jumpUserId" class="text-sm text-gray-600">Ir al ID:</label>
+                <input id="jumpUserId" type="number" min="1" value="{{ $uid }}" class="w-24 border rounded px-2 py-1">
+                <button type="button" onclick="goToUser()" class="px-3 py-1 rounded bg-green-600 text-white hover:bg-green-700">Ir</button>
             </div>
+        </div>
         </div>
     </header>
 
-    <!-- Detalles de Asignación de Peso -->
+
     <section class="max-w-6xl mx-auto mt-8 p-4 bg-white rounded shadow">
         <h2 class="text-xl font-bold text-center text-green-700 mb-4">Detalles de Asignación de Peso</h2>
         <div class="text-center mb-6">
