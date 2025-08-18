@@ -7,6 +7,4 @@ Route::get('/reporte/{id}', [ReporteCliController::class, 'show'])
     ->whereNumber('id')
     ->name('reporte.usuario');
 
-Route::get('/logout', function () {
-    return redirect('/'); // o donde quieras redirigir
-})->name('logout');
+Route::get('/logout', fn() => redirect('/'))->name('logout');

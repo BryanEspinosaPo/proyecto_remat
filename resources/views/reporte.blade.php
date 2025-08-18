@@ -107,12 +107,12 @@
                 <p class="text-sm text-gray-600 mt-1">Puntos Acumulados</p>
             </div>
 
-            <!-- Progreso de peso con barras seguras (Método JavaScript) -->
+            <!-- Progreso diagrama barras seguras (Método JavaScript) -->
             <div class="bg-white p-6 rounded-lg shadow-md flex flex-col items-center min-h-[320px]">
                 <h2 class="text-xl font-semibold text-gray-800">Progreso de Peso</h2>
                 <p class="text-sm text-gray-500 mb-4">Peso total recolectado por mes (kg)</p>
 
-                <!-- Contenedor del Gráfico (con altura fija h-56) -->
+                <!-- Contenedor del Gráfico  -->
                 <div class="w-full h-56 flex items-end justify-around border-b border-gray-200 px-2">
 
                     @forelse ($serie ?? [] as $item)
@@ -121,7 +121,7 @@
                         <!-- Etiqueta de la suma -->
                         <span class="text-sm font-semibold text-gray-700">{{ round($item['total_peso'] ?? 0, 1) }}</span>
 
-                        <!-- La Barra. NOTA: Usamos data-height en lugar de style -->
+                        <!-- La Barra. -->
                         <div class="mt-1 w-8 bg-green-600 hover:bg-green-500 rounded-t-md transition-all duration-500 ease-out"
                             data-height="{{ $item['height_percentage'] ?? 0 }}"
                             title="{{ round($item['total_peso'] ?? 0, 1) }} kg">
@@ -222,27 +222,27 @@
             const input = document.getElementById('jumpUserId');
             const id = parseInt(input.value, 10);
             if (!isNaN(id) && id > 0) {
-                // Asegúrate de que esta URL sea la correcta para tu estructura de rutas.
+
                 window.location.href = "{{ url('/reporte') }}/" + id;
             }
         }
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Selecciona todas las barras que tienen el atributo 'data-height'.
+
             const bars = document.querySelectorAll('[data-height]');
 
-            // 2. Un pequeño retraso para que la animación de crecimiento sea visible.
+
             setTimeout(() => {
                 bars.forEach(bar => {
-                    // 3. Lee el valor del porcentaje desde el atributo.
+
                     let heightPercentage = parseFloat(bar.dataset.height) || 0;
 
-                    // 4. Asegura que el valor esté entre 0 y 100.
+
                     heightPercentage = Math.max(0, Math.min(100, heightPercentage));
 
-                    // 5. Asigna el valor al estilo 'height' de la barra. ¡Esta es la magia!
+
                     bar.style.height = heightPercentage + '%';
                 });
-            }, 100); // 100ms de retraso
+            }, 100);
         });
     </script>
 

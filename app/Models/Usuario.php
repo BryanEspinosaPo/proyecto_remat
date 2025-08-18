@@ -23,7 +23,7 @@ class Usuario extends Model
         'cel'
     ];
 
-    // Para que $usuario->name funcione en tu Blade (mapea a 'nombre')
+
     public function getNameAttribute()
     {
         return $this->nombre;

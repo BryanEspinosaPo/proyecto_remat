@@ -8,7 +8,7 @@ class SolicitudRecoleccion extends Model
 {
     protected $table = 'solicitud_recoleccion';
     protected $primaryKey = 'id';
-    public $timestamps = false; // NO usamos created_at/updated_at
+    public $timestamps = false;
 
     protected $fillable = [
         'usuario_id',

@@ -4,24 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use App\Models\Reporte;
-use App\Models\SolicitudRecoleccion; // Usaremos este modelo consistentemente
+use App\Models\SolicitudRecoleccion;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ReporteCliController extends Controller
 {
     /**
-     * Muestra el reporte de un usuario específico.
+     * Muestra el reporte 
      *
      * @param int $id
      * @return \Illuminate\View\View
      */
     public function show(int $id): View
     {
-        // 1. Carga el usuario o falla (mostrando error 404).
+
         $usuario = Usuario::findOrFail($id);
 
-        // 2. Obtiene todos los reportes para las métricas generales.
+
         $reportes = SolicitudRecoleccion::where('usuario_id', $id)
             ->orderBy('fecha_solicitud', 'desc')
             ->get();
@@ -32,25 +32,19 @@ class ReporteCliController extends Controller
         $pesoRegistrado = (float) ($reportes->first()->peso ?? 0);
         $puntosAcumulados = $puntosAdquiridos;
 
-        // --- LÓGICA DEL GRÁFICO ---
 
-        // 4. Obtiene los datos agrupados por mes.
-        // Esta consulta es la fuente de los datos para las barras.
         $serie = SolicitudRecoleccion::selectRaw('DATE_FORMAT(fecha_recoleccion, "%Y-%m") as ym, SUM(COALESCE(peso, 0)) as total_peso')
             ->where('usuario_id', $usuario->id)
-            ->whereNotNull('fecha_recoleccion') // IGNORA reportes sin fecha de recolección
+            ->whereNotNull('fecha_recoleccion')
             ->groupBy('ym')
             ->orderBy('ym', 'asc')
-            ->get(); // El resultado es una Colección de Objetos.
+            ->get();
 
-        // 5. Calcula el valor máximo de peso para escalar el gráfico.
-        // Si la colección está vacía o todos los pesos son 0, $maxPeso será 0 o null.
         $maxPeso = $serie->max('total_peso');
 
-        // 6. Añade la propiedad 'height_percentage' a cada mes.
-        // Usamos transform() para modificar la colección directamente.
+
         $serie->transform(function ($item) use ($maxPeso) {
-            // Solo calcula el porcentaje si maxPeso es mayor que 0 para evitar división por cero.
+
             if ($maxPeso > 0) {
                 $item->height_percentage = ($item->total_peso / $maxPeso) * 100;
             } else {
