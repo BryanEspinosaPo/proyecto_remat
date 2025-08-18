@@ -8,3 +8,8 @@ Route::get('/reporte/{id}', [ReporteCliController::class, 'show'])
     ->name('reporte.usuario');
 
 Route::get('/logout', fn() => redirect('/'))->name('logout');
+
+
+Route::get('/reporte/{id}/pdf', [ReporteCliController::class, 'descargarPDF'])
+    ->whereNumber('id')
+    ->name('reporte.pdf');

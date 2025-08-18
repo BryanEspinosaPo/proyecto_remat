@@ -53,6 +53,13 @@
             $prevId = $uid > 1 ? ($uid - 1) : 1;
             $nextId = $uid + 1;
             @endphp
+
+            <div class="mt-4 text-center">
+                <a href="{{ route('reporte.pdf', ['id' => $usuario->id]) }}"
+                    class="inline-block px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+                    Descargar Reporte en PDF
+                </a>
+            </div>
             <!--    <div class="flex flex-wrap items-center gap-3">
                 <a href="{{ route('reporte.usuario', ['id' => $prevId]) }}" class="px-3 py-1 rounded bg-white border hover:bg-gray-50">◀ Anterior</a>
                 <span class="text-sm text-gray-700">Cliente actual: <strong>#{{ $uid }}</strong></span>
