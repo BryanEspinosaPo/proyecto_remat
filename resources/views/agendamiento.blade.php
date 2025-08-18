@@ -47,21 +47,21 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1" >Nombre</label>
-                        <input type="text" name="nombre" class="border @error('nombre') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Juan" value="{{ old('nombre') }}" required>
+                        <input type="text" name="nombre" class="border @error('nombre') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Juan" value="{{ old('nombre') }}" required>
                         @error('nombre')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1" >Apellido</label>
-                        <input type="text" name="apellido" class="border @error('apellido') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Pérez" value="{{ old('apellido') }}" required>
+                        <input type="text" name="apellido" class="border @error('apellido') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Pérez" value="{{ old('apellido') }}" required>
                         @error('apellido')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
-                        <input type="text" name="ciudad" class="border @error('ciudad') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Bogotá" value="{{ old('ciudad') }}" required>
+                        <input type="text" name="ciudad" class="border @error('ciudad') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Bogotá" value="{{ old('ciudad') }}" required>
                         @error('ciudad')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -76,7 +76,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
-                        <input type="number" name="celular" class="border @error('celular') border-red-500 @enderror border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 3001234567" value="{{ old('celular') }}" required>
+                        <input type="number" name="celular" class="border @error('celular') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 3001234567" value="{{ old('celular') }}" required>
                         @error('celular')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
@@ -134,7 +134,7 @@
         </div>
 
     </div>
-    <footer class="bg-green-900 text-white p-6 mt-12">
+    <footer class=" fixed bottom-0 w-full bg-green-900 text-white p-6 mt-12">
         <div class="container mx-auto text-center">
             <p class="text-sm">&copy; {{ date('Y') }} ReMat. Todos los derechos reservados.</p>
         </div>
