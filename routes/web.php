@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('puntos');
+Route::get('/agendamiento', function () {
+    return view('agendamiento');
 });
