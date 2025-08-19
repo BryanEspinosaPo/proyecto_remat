@@ -9,12 +9,18 @@
     background-position: bottom;
 }
 
+
+
 .banner-home .contenedor-textos-imagen {
     display: flex;
     align-items: center;
-    position: relative;
     height: 100vh;
     margin-left: 90px;
+}
+
+.banner-home .contenedor-textos-imagen .contenedor-textos {
+    position: relative;
+
 }
 
 
@@ -112,6 +118,10 @@
     padding: 40px 0px;
 }
 
+.por-que-reciclar-home .container {
+    margin: auto;
+}
+
 .por-que-reciclar-home .contenedor-titulo-cards .contenedor-titulo h2 {
     font-size: 40px;
     list-style: 60px;
@@ -164,7 +174,7 @@
     }
 
     .por-que-reciclar-home .contenedor-titulo-cards .contenedor-cards .card-por-card h3 {
-               font-size: 18px;
+        font-size: 18px;
         line-height: 20px;
     }
 }
@@ -178,6 +188,11 @@
 
 .paso-a-paso {
     padding: 93px 0px;
+}
+
+
+.paso-a-paso .container {
+    margin: auto;
 }
 
 .paso-a-paso .contenedor-general-paso .contenedor-linea-informativa {
@@ -231,6 +246,7 @@
     color: #214220;
     font-size: 32px;
     font-weight: 700;
+    line-height: 40px;
 }
 
 @media (max-width: 767px) {
@@ -289,6 +305,10 @@
 
 .preguntas-frecuentes {
     padding: 0px 0px 60px 0px;
+}
+
+.preguntas-frecuentes .container {
+    margin: auto;
 }
 
 .preguntas-frecuentes .container {
