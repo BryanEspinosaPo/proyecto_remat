@@ -76,14 +76,23 @@
             font-size: 14px;
             color: #666;
         }
+
+        .logo {
+            max-width: 180px;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="header">
+        @if(isset($logoBase64) && $logoBase64)
+        <img src="{{ $logoBase64 }}" alt="Logo" class="logo">
+        @else
+        <p style="color: red; border: 1px solid red; padding: 5px;"> </p>
+        @endif
         <h1>Reporte de Cliente</h1>
-        <p><strong>Nombre:</strong> {{ $usuario->nombre ?? $usuario->name ?? 'Usuario' }}</p>
+        <p><strong>Nombre:</strong> {{ $usuario->nombre ?? 'Usuario' }}</p>
         <p><strong>Puntos disponibles:</strong> {{ $puntosAcumulados ?? 0 }}</p>
     </div>
 

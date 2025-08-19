@@ -56,7 +56,7 @@
 
             <div class="mt-4 text-center">
                 <a href="{{ route('reporte.pdf', ['id' => $usuario->id]) }}"
-                    class="inline-block px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-75">
+                    class="inline-block px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-75">
                     Descargar Reporte en PDF
                 </a>
             </div>
