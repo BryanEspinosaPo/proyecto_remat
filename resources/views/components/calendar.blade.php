@@ -3,21 +3,16 @@
     x-init="init()"
     class="bg-white p-6 rounded-lg shadow-md shadow-gray-300  mt-12 "
 >
-    <!-- Navegación de meses -->
     <div class="flex justify-between items-center mb-4">
         <button @click="prevMonth" class="text-gray-500 hover:text-black">&lt;</button>
         <h3 class="text-lg font-semibold" x-text="monthNames[currentMonth] + ' ' + currentYear"></h3>
         <button @click="nextMonth" class="text-gray-500 hover:text-black">&gt;</button>
     </div>
-
-    <!-- Días de la semana -->
     <div class="grid grid-cols-7 text-center text-sm font-medium text-gray-600 mb-2">
         <template x-for="day in weekDays" :key="day">
             <div x-text="day"></div>
         </template>
     </div>
-
-    <!-- Días -->
     <div class="grid grid-cols-7 gap-2 text-center">
         <template x-for="blank in blanks" :key="'b' + blank">
             <div></div>
@@ -53,25 +48,33 @@
             <option>14:00 - 16:00</option>
         </select>
     </div>
-
-    <!-- Input visible con fecha + hora -->
+    <input type="text"
+           name="fecha_recoleccion"
+           :value="selectedDate"
+           x-model="selectedDate"
+           style="display: none;">
+    <input type="text"
+           name="hora_recoleccion"
+           :value="selectedTime ? selectedTime.split(' - ')[0] : ''"
+           x-model="horaRecoleccion"
+           style="display: none;">
     <div class="mt-4">
         <label class="block font-medium mb-1">Fecha y Hora Seleccionada:</label>
         <input
             type="text"
-            name="fecha_hora_recoleccion"
-            class="border @error('fecha_hora_recoleccion') border-red-500 @enderror border-gray-300 p-2 rounded w-full"
+            class="border p-2 rounded w-full bg-gray-50"
             x-model="fullDateTime"
             readonly
-            required
             x-bind:class="{'border-red-500': !isValid()}"
         >
-        @error('fecha_hora_recoleccion')
-            <span class="text-red-500 text-sm">{{ $message }}</span>
-        @enderror
-        <span x-show="!isValid() && (selectedDate || selectedTime)" class="text-red-500 text-sm">
+        <span x-show="!isValid() && (selectedDate || selectedTime)" class="text-red-500 text-sm block mt-1">
             Debes seleccionar tanto la fecha como el rango horario
         </span>
+        <div x-data="calendar()" class="space-y-4">
+            <!-- Hidden inputs que viajan al backend -->
+            <input type="hidden" name="fecha_recoleccion" x-model="selectedDate">
+            <input type="hidden" name="hora_recoleccion" x-model="horaRecoleccion">
+        </div>
     </div>
 </div>
 
@@ -86,6 +89,7 @@ function calendar() {
         blanks: [],
         selectedDate: '',
         selectedTime: '',
+        horaRecoleccion: '',
         fullDateTime: '',
 
         isValid() {
@@ -99,8 +103,6 @@ function calendar() {
         getDays() {
             const firstDay = new Date(this.currentYear, this.currentMonth, 1).getDay();
             const totalDays = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
-
-            // Ajustar para que empiece en lunes
             const adjustedFirstDay = (firstDay + 6) % 7;
             this.blanks = Array.from({ length: adjustedFirstDay }, (_, i) => i + 1);
             this.daysInMonth = Array.from({ length: totalDays }, (_, i) => i + 1);
@@ -136,7 +138,6 @@ function calendar() {
         },
 
         getColombiaTime() {
-            // Crear fecha con la zona horaria de Colombia
             const options = { timeZone: 'America/Bogota' };
             const colombiaTime = new Date().toLocaleString('en-US', options);
             return new Date(colombiaTime);
@@ -147,7 +148,6 @@ function calendar() {
             selectedDate.setHours(0, 0, 0, 0);
 
             const todayColombia = this.getColombiaTime();
-            // Creamos la fecha mínima (día siguiente)
             const tomorrowColombia = new Date(todayColombia);
             tomorrowColombia.setDate(todayColombia.getDate() + 1);
             tomorrowColombia.setHours(0, 0, 0, 0);
@@ -199,29 +199,31 @@ function calendar() {
                     this.updateDateTime();
                     return;
                 }
-
-                // Si estamos dentro del rango horario (entre inicio y fin)
                 if (nowColombia >= selectedStartDateTime && nowColombia <= selectedEndDateTime) {
                     alert('Este horario está disponible sin embargo si no podemos recoger la basura en este horario, se reprogramará automáticamente, para el dia de mañana en la misma franja horaria.');
                     return;
                 }
             }
-        },        updateDateTime() {
+        },
+        updateDateTime() {
             if (this.isValid()) {
                 this.validateTimeRange();
                 if (this.selectedTime) {
                     const timeRange = this.selectedTime.split(' - ')[0];
+                    this.horaRecoleccion = timeRange;
                     this.fullDateTime = `${this.selectedDate} ${timeRange}`;
                     window.dispatchEvent(new CustomEvent('datetime-selected', {
                         detail: this.fullDateTime
                     }));
                 } else {
+                    this.horaRecoleccion = '';
                     this.fullDateTime = '';
                 }
             } else {
+                this.horaRecoleccion = '';
                 this.fullDateTime = '';
             }
-        },
+        }
     }
 }
 </script>

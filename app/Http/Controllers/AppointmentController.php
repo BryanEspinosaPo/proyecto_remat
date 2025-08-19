@@ -22,23 +22,16 @@ class AppointmentController extends Controller
             'tamano' => 'required|numeric',
             'unidad_tamano' => 'required|in:cm2,m2',
             'tipo_residuo' => 'required|string|max:255',
-            'fecha_recoleccion' => 'required|date',
-            'hora_recoleccion' => 'required|string',
+            'fecha_recoleccion' => 'nullable|date_format:Y-m-d',
+            'hora_recoleccion' => 'nullable|string|max:5',
         ]);
 
         try {
-            // When database is ready, uncomment this
-            /*
             $appointment = Appointment::create($validated);
             return redirect()->back()->with('success', 'Recolección agendada exitosamente');
-            */
 
-            // Temporary response until database is ready
-            return redirect()->back()->with('success', 'Solicitud procesada exitosamente (modo prueba)');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->withErrors(['error' => 'Hubo un error al procesar su solicitud. Por favor intente nuevamente.']);
-        }
+        }  catch (\Exception $e) {
+            dd($e->getMessage());
+    }
     }
 }

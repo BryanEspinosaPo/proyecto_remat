@@ -33,8 +33,13 @@
         <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
             <h2 class="text-xl font-bold text-green-900 mb-6">Programación de Recolección</h2>
 
-            <form method="POST" action="{{ url('/store') }}" class="space-y-6">
+            <form method="POST" action="{{ route('appointment.store') }}" class="space-y-6" x-data="{}">
                 @csrf
+                @if (session('success'))
+                    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 @if ($errors->any())
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
                         <ul>
@@ -124,6 +129,7 @@
                 </button>
             </form>
         </div>
+
 
         <div class=" bg-white p-8 rounded-xl shadow-md border border-gray-100">
             <div>
