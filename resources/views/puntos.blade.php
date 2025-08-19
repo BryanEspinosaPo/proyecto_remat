@@ -9,11 +9,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         /* Estilos generales del cuerpo y fuente */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f0f0; /* Fondo general más claro, similar al JPG */
+        iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
         }
-        /* Color de fondo para el encabezado */
         .header-bg {
             background-color: #d1fae5; /* Verde muy claro para el encabezado, similar al JPG */
         }
@@ -66,9 +66,9 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center py-4 px-2 sm:px-4 md:px-6 lg:px-8">
+<body class="min-h-screen flex flex-col items-center">
     <!-- Contenedor principal para centrar y limitar el ancho del contenido -->
-    <div class="mb-24 w-full mx-auto">
+    <div class="w-full mx-auto">
 
         <!-- Encabezado / Barra de Navegación (Nav) -->
         <header>
@@ -88,7 +88,7 @@
         </header>
 
         <!-- Contenido principal dividido en dos columnas para pantallas grandes -->
-        <main class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <main class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 py-6 px-4">
 
             <!-- Columna Izquierda: Perfil de Usuario y Tiendas Aliadas -->
             <section class="flex flex-col gap-6">
@@ -117,7 +117,7 @@
                 </div>
 
                 <!-- Lista de Tiendas Asociadas con desplegable (select) -->
-                <div class="section-bg p-4 sm:p-6 rounded-xl shadow-custom">
+                <div class=" max-h-screen  section-bg p-4 sm:p-6 rounded-xl shadow-custom  ">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Tiendas Asociadas</h2>
                     <!-- Desplegable para seleccionar tiendas -->
                     <label for="storeSelect" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una tienda:</label>
@@ -131,7 +131,7 @@
                     </select>
 
                     <!-- Lista detallada de tiendas (puede ocultarse/filtrarse con JS al usar el desplegable) -->
-                    <div class="space-y-4 max-h-96 overflow-y-auto">
+                    <div class="space-y-4 max-h-screen overflow-y-auto">
                         <!-- Tienda 1: Datos ficticios -->
                         <div class="border-b pb-3 last:border-b-0">
                             <h3 class="font-medium text-gray-900">Tienda La Esperanza</h3>
@@ -179,9 +179,11 @@
                     <div class="map-container">
                         <!-- Google Maps Embed API con marcadores de ejemplo.
                              ¡IMPORTANTE! Reemplaza 'TU_API_KEY_AQUI' con tu clave de API de Google Maps. -->
-                        <iframe
-                            src="https://www.google.com/maps/embed/v1/place?key=TU_API_KEY_AQUI&q=Bogota,Colombia&markers=color:green%7Clabel:A%7C4.6766,-74.0532&markers=color:green%7Clabel:B%7C4.6548,-74.0545&markers=color:green%7Clabel:C%7C4.7061,-74.0847&markers=color:green%7Clabel:D%7C4.6472,-74.1039&markers=color:green%7Clabel:E%7C4.5979,-74.0700"
-                            allowfullscreen="" loading="lazy">
+                         <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9497482!2d-74.08175!3d4.60971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99c3f0%3A0x123456789abcdef!2sBogotá%2C%20Colombia!5e0!3m2!1ses!2sco!4v169341235"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
                     <p class="text-xs text-gray-500 mt-2">Los marcadores A, B, C, D, E corresponden a las tiendas asociadas.</p>
@@ -208,14 +210,10 @@
                 </div>
             </section>
         </main>
+        @include('partials.footer')
     </div>
 
     <script>
-        /**
-         * Función para simular el envío del código de canje.
-         * En un entorno de producción, esta función realizaría una llamada
-         * a un API de backend para procesar el canje de puntos.
-         */
         function sendRedemptionCode() {
             const codeInput = document.getElementById('redemptionCode');
             const messageBox = document.getElementById('messageBox');
@@ -267,18 +265,6 @@
                 }, 5000); // Ocultar después de 5 segundos
             }
         }
-
-        // Puedes añadir aquí lógica adicional para el desplegable 'storeSelect'.
-        // Por ejemplo, al cambiar la selección, podrías:
-        // 1. Filtrar la lista de tiendas mostrada.
-        // 2. Cambiar el enfoque del mapa a la tienda seleccionada (requeriría manipular el iframe de Google Maps
-        //    o recargar su src con nuevos parámetros, lo cual es más complejo con la API Embed básica).
-        // 3. Mostrar detalles específicos de la tienda seleccionada en otra parte de la página.
-        // document.getElementById('storeSelect').addEventListener('change', function() {
-        //     const selectedStore = this.value;
-        //     console.log('Tienda seleccionada:', selectedStore);
-        //     // Implementar lógica de filtrado o actualización de mapa aquí
-        // });
     </script>
 </body>
 </html>

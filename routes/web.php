@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReporteCliController;
 
+Route::get('/', function () {
+    return view('landing');
+});
 Route::get('/agendamiento', function () {
     return view('agendamiento');
 
@@ -16,4 +19,7 @@ Route::get('/agendamiento', function () {
     Route::get('/reporte/{id}/pdf', [ReporteCliController::class, 'descargarPDF'])
         ->whereNumber('id')
         ->name('reporte.pdf');
+});
+Route::get('/puntos', function () {
+    return view('puntos');
 });
