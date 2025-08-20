@@ -20,13 +20,12 @@
             </a>
             <div class="hidden md:flex  space-x-6 text-sm font-medium">
                 {{-- <a href="{{ route('landing') }}" class="text-gray-600 hover:text-green-700 transition">Inicio</a> --}}
-                {{-- <a href="{{ route('agendamiento') }}"
-                    class="text-gray-600 hover:text-green-700 transition">Programación</a> --}}
-                {{-- <a href="{{ route('reporte.usuario', ['id' => 1]) }}" class="text-gray-600 hover:text-green-700 transition">Reporte</a> --}}
-                {{-- <a href="{{ route('puntos') }}" class="text-gray-600 hover:text-green-700 transition">Puntos</a> --}}
-                <a href="{{ route('login') }}" class="text-gray-600 hover:text-green-700 transition">Inicio de
+                <a href="{{ route('agendamiento') }}"  class="text-gray-600 hover:text-green-700 transition">Programación</a>
+                <a href="{{ route('reporte.usuario', ['id' => 1]) }}" class="text-gray-600 hover:text-green-700 transition">Reporte</a>
+                <a href="{{ route('puntos') }}" class="text-gray-600 hover:text-green-700 transition">Puntos</a>
+                {{-- <a href="{{ route('login') }}" class="text-gray-600 hover:text-green-700 transition">Inicio de
                     sesión</a>
-                <a href="{{ route('registro') }}" class="text-gray-600 hover:text-green-700 transition">Registrar</a>
+                <a href="{{ route('registro') }}" class="text-gray-600 hover:text-green-700 transition">Registrar</a> --}}
 
             </div>
         </div>

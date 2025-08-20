@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
+
 <body class="min-h-screen w-full bg-gray-50 text-gray-800 font-sans">
     <nav class="bg-white shadow-lg">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -14,10 +16,10 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto">
             </a>
             <div class="hidden md:flex  space-x-6 text-sm font-medium">
-                <a href="/" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition">Reporte Cliente</a>
-                <a href="#" class="text-gray-600 hover:text-green-700 transition">Puntos</a>
-                <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Perfil</a>
+                <a href="{{ route('landingInside') }}" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                <a href="{{ route('reporte.usuario', ['id' => 1]) }}"
+                    class="text-gray-600 hover:text-green-700 transition">Reporte</a>
+                <a href="{{ route('puntos') }}" class="text-gray-600 hover:text-green-700 transition">Puntos</a>
             </div>
         </div>
     </nav>
@@ -46,51 +48,67 @@
                 @endif
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1" >Nombre</label>
-                        <input type="text" name="nombre" class="border @error('nombre') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Juan" value="{{ old('nombre') }}" required>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                        <input type="text" name="nombre"
+                            class="border @error('nombre') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: Juan" value="{{ old('nombre') }}" required>
                         @error('nombre')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1" >Apellido</label>
-                        <input type="text" name="apellido" class="border @error('apellido') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Pérez" value="{{ old('apellido') }}" required>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                        <input type="text" name="apellido"
+                            class="border @error('apellido') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: Pérez" value="{{ old('apellido') }}" required>
                         @error('apellido')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
-                        <input type="text" name="ciudad" class="border @error('ciudad') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Bogotá" value="{{ old('ciudad') }}" required>
+                        <input type="text" name="ciudad"
+                            class="border @error('ciudad') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: Bogotá" value="{{ old('ciudad') }}" required>
                         @error('ciudad')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1" >Zona</label>
-                        <input type="text" name="zona" class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Norte" value="{{ old('zona') }}">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Zona</label>
+                        <input type="text" name="zona"
+                            class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: Norte" value="{{ old('zona') }}">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1" >Código Postal</label>
-                        <input type="text" name="codigo" class="border  border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 110111" value="{{ old('codigo') }}">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Código Postal</label>
+                        <input type="text" name="codigo"
+                            class="border  border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: 110111" value="{{ old('codigo') }}">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
-                        <input type="number" name="celular" class="border @error('celular') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: 3001234567" value="{{ old('celular') }}" required>
+                        <input type="number" name="celular"
+                            class="border @error('celular') border-red-500 @enderror  p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: 3001234567" value="{{ old('celular') }}" required>
                         @error('celular')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="sm:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-1"> Dirección de Recolección</label>
-                        <input type="text" name="direccion" class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full" placeholder="Ej: Calle 12 # 34 - 56">
+                        <input type="text" name="direccion"
+                            class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full"
+                            placeholder="Ej: Calle 12 # 34 - 56">
                     </div>
-                   <!-- Peso -->
+                    <!-- Peso -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Peso</label>
                         <div class="flex">
-                            <input type="number" name="peso" placeholder="Ej: 1" class="border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-green-400 w-full">
-                            <select name="unidad_peso" class="border border-gray-300 p-3 rounded-r-lg focus:ring-2 focus:ring-green-400 bg-white">
+                            <input type="number" name="peso" placeholder="Ej: 1"
+                                class="border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-green-400 w-full">
+                            <select name="unidad_peso"
+                                class="border border-gray-300 p-3 rounded-r-lg focus:ring-2 focus:ring-green-400 bg-white">
                                 <option value="kg">kg</option>
                                 <option value="g">g</option>
                                 <option value="lb">lb</option>
@@ -102,8 +120,10 @@
                             Tamaño Aproximado:
                         </label>
                         <div class="flex">
-                            <input type="number" name="tamano" placeholder="Ej: 100" class="border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-green-400 w-full" >
-                            <select name="unidad_tamano" class="border border-gray-300 p-3 rounded-r-lg focus:ring-2 focus:ring-green-400 bg-white">
+                            <input type="number" name="tamano" placeholder="Ej: 100"
+                                class="border border-gray-300 p-3 rounded-l-lg focus:ring-2 focus:ring-green-400 w-full">
+                            <select name="unidad_tamano"
+                                class="border border-gray-300 p-3 rounded-r-lg focus:ring-2 focus:ring-green-400 bg-white">
                                 <option value="cm2">cm²</option>
                                 <option value="m2">m²</option>
                             </select>
@@ -112,14 +132,16 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Recolección</label>
-                    <select name="tipo_residuo" class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full">
+                    <select name="tipo_residuo"
+                        class="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 w-full">
                         <option value="">Seleccione tipo de residuo</option>
                         <option>Residuos organicos</option>
                         <option>Residuos Inorganicos</option>
                         <option>Residuos Peligrosos</option>
                     </select>
                 </div>
-                <button type="submit" class="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition">
+                <button type="submit"
+                    class="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-semibold shadow-lg transition">
                     Solicitar Recolección
                 </button>
             </form>
@@ -127,18 +149,25 @@
 
         <div class=" bg-white p-8 rounded-xl shadow-md border border-gray-100">
             <div>
-            <h2 class="text-xl font-bold text-green-900 mb-6">Programación de Recolección</h2>
-            <p class="text text-green-900 mb-6">Seleccione la fecha y el rango horario para la recolección:</p>
+                <h2 class="text-xl font-bold text-green-900 mb-6">Programación de Recolección</h2>
+                <p class="text text-green-900 mb-6">Seleccione la fecha y el rango horario para la recolección:</p>
             </div>
             @include('components.calendar')
         </div>
 
     </div>
-    <footer class=" fixed bottom-0 w-full bg-green-900 text-white p-6 mt-12">
+    <footer class=" bottom-0 w-full bg-green-900 text-white p-6 mt-12">
         <div class="container mx-auto text-center">
             <p class="text-sm">&copy; {{ date('Y') }} ReMat. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    @if (session('alert'))
+        <script>
+            alert("{{ session('alert') }}");
+        </script>
+    @endif
+
 </body>
+
 </html>

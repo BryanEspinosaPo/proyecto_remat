@@ -12,13 +12,12 @@
 </head>
 
 <body>
-    @include('partials.nav') {{-- Aquí incluyes el nav --}}
-
+    {{-- @include('partials.nav')  --}}
     <main>
-        @yield('content') {{-- Aquí va el contenido específico de cada landing --}}
+        @yield('content') 
     </main>
 
-    @include('partials.footer') {{-- Aquí el footer --}}
+    {{-- @include('partials.footer')  --}}
 </body>
 
 </html>

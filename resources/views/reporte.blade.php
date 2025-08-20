@@ -17,17 +17,10 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto" />
             </a>
             <div class="flex items-center gap-2">
-                <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Agendamiento</a>
-                @if(isset($usuario->id))
-                <a href="{{ route('reporte.usuario', ['id' => $usuario->id]) }}" class="text-gray-600 hover:text-indigo-600 mx-2">Reporte Cliente</a>
-                @endif
-                <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Puntos</a>
-
-                <a href="{{ route('logout') }}"
-                    class="text-gray-600 hover:text-indigo-600 mx-2"
-                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                    Cerrar Sesión
-                </a>
+                <a href="{{ route('landingInside') }}" class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                <a href="{{ route('agendamiento') }}"
+                    class="text-gray-600 hover:text-green-700 transition">Programación</a>
+                <a href="{{ route('puntos') }}" class="text-gray-600 hover:text-green-700 transition">Puntos</a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                     @csrf
                 </form>
@@ -40,18 +33,19 @@
         <div class="max-w-2xl mx-auto flex flex-col gap-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full"><img src="{{ asset('images/avatar.png') }}" alt="Logo" class="h-23 w-auto" /> </div>
+                    <div class="w-12 h-12 bg-gray-300 rounded-full"><img src="{{ asset('images/avatar.png') }}"
+                            alt="Logo" class="h-23 w-auto" /> </div>
                     <div>
-                        <h1 class="font-bold text-xl">{{ $usuario->nombre ?? $usuario->name ?? 'Usuario' }}</h1>
+                        <h1 class="font-bold text-xl">{{ $usuario->nombre ?? ($usuario->name ?? 'Usuario') }}</h1>
                         <span class="text-sm text-gray-600">Puntos disponibles: {{ $puntosAcumulados ?? 0 }}</span>
                     </div>
                 </div>
             </div>
 
             @php
-            $uid = $usuario->id ?? 1;
-            $prevId = $uid > 1 ? ($uid - 1) : 1;
-            $nextId = $uid + 1;
+                $uid = $usuario->id ?? 1;
+                $prevId = $uid > 1 ? $uid - 1 : 1;
+                $nextId = $uid + 1;
             @endphp
 
             <div class="mt-4 text-center">
@@ -78,7 +72,8 @@
     <section class="max-w-6xl mx-auto mt-8 p-4 bg-white rounded shadow">
         <h2 class="text-xl font-bold text-center text-green-700 mb-4">Detalles de Asignación de Peso</h2>
         <div class="text-center mb-6">
-            <a href="#historialModal" onclick="openModal('historialModal')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ver Detalles</a>
+            <a href="#historialModal" onclick="openModal('historialModal')"
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Ver Detalles</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
@@ -99,7 +94,8 @@
     <section class="max-w-6xl mx-auto mt-8 p-4 bg-white rounded shadow">
         <div class="flex flex-col md:flex-row justify-between items-center mb-6">
             <h2 class="text-xl font-bold">Tus Métricas</h2>
-            <a href="#metricasModal" onclick="openModal('metricasModal')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-4 md:mt-0">Ver Detalles</a>
+            <a href="#metricasModal" onclick="openModal('metricasModal')"
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-4 md:mt-0">Ver Detalles</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
@@ -123,32 +119,33 @@
                 <div class="w-full h-56 flex items-end justify-around border-b border-gray-200 px-2">
 
                     @forelse ($serie ?? [] as $item)
-                    <!-- Contenedor para la columna (suma + barra) -->
-                    <div class="flex flex-col items-center text-center w-12">
-                        <!-- Etiqueta de la suma -->
-                        <span class="text-sm font-semibold text-gray-700">{{ round($item['total_peso'] ?? 0, 1) }}</span>
+                        <!-- Contenedor para la columna (suma + barra) -->
+                        <div class="flex flex-col items-center text-center w-12">
+                            <!-- Etiqueta de la suma -->
+                            <span
+                                class="text-sm font-semibold text-gray-700">{{ round($item['total_peso'] ?? 0, 1) }}</span>
 
-                        <!-- La Barra. -->
-                        <div class="mt-1 w-8 bg-green-600 hover:bg-green-500 rounded-t-md transition-all duration-500 ease-out"
-                            data-height="{{ $item['height_percentage'] ?? 0 }}"
-                            title="{{ round($item['total_peso'] ?? 0, 1) }} kg">
+                            <!-- La Barra. -->
+                            <div class="mt-1 w-8 bg-green-600 hover:bg-green-500 rounded-t-md transition-all duration-500 ease-out"
+                                data-height="{{ $item['height_percentage'] ?? 0 }}"
+                                title="{{ round($item['total_peso'] ?? 0, 1) }} kg">
+                            </div>
                         </div>
-                    </div>
                     @empty
-                    <div class="flex items-center justify-center h-full w-full">
-                        <p class="text-gray-500">No hay datos de peso para mostrar.</p>
-                    </div>
+                        <div class="flex items-center justify-center h-full w-full">
+                            <p class="text-gray-500">No hay datos de peso para mostrar.</p>
+                        </div>
                     @endforelse
                 </div>
 
                 <!-- Contenedor para las etiquetas de los meses -->
                 <div class="w-full h-8 flex items-start justify-around px-2 pt-1">
                     @foreach ($serie ?? [] as $item)
-                    <div class="w-12 text-center">
-                        <span class="text-xs font-medium text-gray-500 uppercase">
-                            {{ \Carbon\Carbon::createFromFormat('Y-m', $item['ym'])->translatedFormat('M') }}
-                        </span>
-                    </div>
+                        <div class="w-12 text-center">
+                            <span class="text-xs font-medium text-gray-500 uppercase">
+                                {{ \Carbon\Carbon::createFromFormat('Y-m', $item['ym'])->translatedFormat('M') }}
+                            </span>
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -173,25 +170,27 @@
                     </thead>
                     <tbody class="bg-white">
                         @forelse ($reportes ?? [] as $reporte)
-                        <tr class="border-t">
-                            <td class="py-2 px-4">{{ $reporte->id ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->cod_residuo ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->fecha_solicitud ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->peso ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->fecha_recoleccion ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->hora_prevista ?? '—' }}</td>
-                            <td class="py-2 px-4">{{ $reporte->estado ?? '—' }}</td>
-                        </tr>
+                            <tr class="border-t">
+                                <td class="py-2 px-4">{{ $reporte->id ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->cod_residuo ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->fecha_solicitud ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->peso ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->fecha_recoleccion ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->hora_prevista ?? '—' }}</td>
+                                <td class="py-2 px-4">{{ $reporte->estado ?? '—' }}</td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="7" class="py-4 text-center text-gray-500">No hay reportes disponibles.</td>
-                        </tr>
+                            <tr>
+                                <td colspan="7" class="py-4 text-center text-gray-500">No hay reportes disponibles.
+                                </td>
+                            </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
             <div class="text-right mt-4">
-                <button onclick="closeModal('historialModal')" class="bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
+                <button onclick="closeModal('historialModal')"
+                    class="bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
             </div>
         </div>
     </div>
@@ -206,10 +205,17 @@
                 <li>Peso recolectado total: {{ $pesoRecolectado ?? 0 }} kg</li>
             </ul>
             <div class="text-right mt-4">
-                <button onclick="closeModal('metricasModal')" class="bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
+                <button onclick="closeModal('metricasModal')"
+                    class="bg-red-500 text-white px-4 py-2 rounded">Cerrar</button>
             </div>
         </div>
     </div>
+
+      <footer class=" bottom-0 w-full bg-green-900 text-white p-6 mt-12 z-50">
+        <div class="container mx-auto text-center">
+            <p class="text-sm">&copy; {{ date('Y') }} ReMat. Todos los derechos reservados.</p>
+        </div>
+    </footer>
 
     <!-- Scripts -->
     <script>

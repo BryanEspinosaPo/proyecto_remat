@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,37 +11,50 @@
     <style>
         /* Estilos generales del cuerpo y fuente */
         iframe {
-        width: 100%;
-        height: 400px;
-        border: 0;
+            width: 100%;
+            height: 400px;
+            border: 0;
         }
+
         .header-bg {
-            background-color: #d1fae5; /* Verde muy claro para el encabezado, similar al JPG */
+            background-color: #d1fae5;
+            /* Verde muy claro para el encabezado, similar al JPG */
         }
+
         /* Color de fondo para las secciones de contenido */
         .section-bg {
-            background-color: #ffffff; /* Blanco para las secciones de contenido */
+            background-color: #ffffff;
+            /* Blanco para las secciones de contenido */
         }
+
         /* Estilo para el botón principal */
         .button-primary {
-            background-color: #10B981; /* Verde brillante para botones, similar al JPG */
+            background-color: #10B981;
+            /* Verde brillante para botones, similar al JPG */
         }
+
         /* Borde para los campos de entrada (inputs) */
         .input-border {
-            border-color: #e5e7eb; /* Borde gris claro para inputs */
+            border-color: #e5e7eb;
+            /* Borde gris claro para inputs */
         }
+
         /* Sombra personalizada para elementos */
         .shadow-custom {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
+
         /* Contenedor del mapa para mantener el ratio de aspecto */
         .map-container {
             position: relative;
-            padding-bottom: 75%; /* 4:3 Aspect Ratio para el mapa */
+            padding-bottom: 75%;
+            /* 4:3 Aspect Ratio para el mapa */
             height: 0;
             overflow: hidden;
-            border-radius: 0.75rem; /* Bordes redondeados */
+            border-radius: 0.75rem;
+            /* Bordes redondeados */
         }
+
         .map-container iframe {
             position: absolute;
             top: 0;
@@ -49,39 +63,46 @@
             height: 100%;
             border: 0;
         }
+
         /* Estilos personalizados para la barra de desplazamiento (scrollbar) para una mejor estética */
         .overflow-y-auto::-webkit-scrollbar {
             width: 8px;
         }
+
         .overflow-y-auto::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 10px;
         }
+
         .overflow-y-auto::-webkit-scrollbar-thumb {
             background: #888;
             border-radius: 10px;
         }
+
         .overflow-y-auto::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col items-center">
     <!-- Contenedor principal para centrar y limitar el ancho del contenido -->
     <div class="w-full mx-auto">
 
         <!-- Encabezado / Barra de Navegación (Nav) -->
         <header>
-            <nav class="bg-white shadow-md p-4">
-                <div class="container mx-auto flex justify-between items-center">
-                    <a href="#" class="text-2xl font-bold text-indigo-600">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto">
+            <nav class="bg-white shadow-lg">
+                <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-12 w-auto">
                     </a>
-                    <div>
-                        <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Agendamiento</a>
-                        <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Reporte Cliente</a>
-                        <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Puntos</a>
-                        <a href="#" class="text-gray-600 hover:text-indigo-600 mx-2">Ingresar</a>
+                    <div class="hidden md:flex  space-x-6 text-sm font-medium">
+                        <a href="{{ route('landingInside') }}"
+                            class="text-gray-600 hover:text-green-700 transition">Inicio</a>
+                        <a href="{{ route('agendamiento') }}"
+                            class="text-gray-600 hover:text-green-700 transition">Programación</a>
+                        <a href="{{ route('reporte.usuario', ['id' => 1]) }}"
+                            class="text-gray-600 hover:text-green-700 transition">Reporte</a>
                     </div>
                 </div>
             </nav>
@@ -96,10 +117,12 @@
                 <div class="section-bg p-4 sm:p-6 rounded-xl shadow-custom">
                     <div class="flex items-center mb-4">
                         <!-- Imagen de perfil placeholder -->
-                        <img src="https://placehold.co/60x60/d1fae5/10B981?text=PP" alt="Foto de perfil" class="w-16 h-16 rounded-full mr-4 border-2 border-green-400">
+                        <img src="https://placehold.co/60x60/d1fae5/10B981?text=PP" alt="Foto de perfil"
+                            class="w-16 h-16 rounded-full mr-4 border-2 border-green-400">
                         <div>
-                            <h2 class="text-xl font-semibold text-gray-800">Pepito Pérez</h2>
-                            <p class="text-gray-600 text-sm">Puntos: <span class="font-bold text-green-700">1500</span></p>
+                            <h2 class="text-xl font-semibold text-gray-800">Olga Lopez</h2>
+                            <p class="text-gray-600 text-sm">Puntos: <span class="font-bold text-green-700">40</span>
+                            </p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
@@ -110,7 +133,7 @@
                         </div>
                         <div>
                             <p><span class="font-medium">Ciudad:</span> Bogotá</p>
-                            <p><span class="font-medium">Email:</span> pepito.perez@example.com</p>
+                            <p><span class="font-medium">Email:</span> olga@gmail.com</p>
                             <p><span class="font-medium">Último canje:</span> 10/08/2025</p>
                         </div>
                     </div>
@@ -120,8 +143,10 @@
                 <div class=" max-h-screen  section-bg p-4 sm:p-6 rounded-xl shadow-custom  ">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Tiendas Asociadas</h2>
                     <!-- Desplegable para seleccionar tiendas -->
-                    <label for="storeSelect" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una tienda:</label>
-                    <select id="storeSelect" class="w-full p-3 mb-4 border input-border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <label for="storeSelect" class="block text-sm font-medium text-gray-700 mb-2">Selecciona una
+                        tienda:</label>
+                    <select id="storeSelect"
+                        class="w-full p-3 mb-4 border input-border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
                         <option value="">Todas las tiendas</option>
                         <option value="esperanza">Tienda La Esperanza</option>
                         <option value="futuro">Reciclaje Futuro</option>
@@ -179,30 +204,23 @@
                     <div class="map-container">
                         <!-- Google Maps Embed API con marcadores de ejemplo.
                              ¡IMPORTANTE! Reemplaza 'TU_API_KEY_AQUI' con tu clave de API de Google Maps. -->
-                         <iframe
+                        <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.9497482!2d-74.08175!3d4.60971!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f99c3f0%3A0x123456789abcdef!2sBogotá%2C%20Colombia!5e0!3m2!1ses!2sco!4v169341235"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                         </iframe>
                     </div>
-                    <p class="text-xs text-gray-500 mt-2">Los marcadores A, B, C, D, E corresponden a las tiendas asociadas.</p>
+                    <p class="text-xs text-gray-500 mt-2">Los marcadores A, B, C, D, E corresponden a las tiendas
+                        asociadas.</p>
                 </div>
 
                 <!-- Cuadro para canjear puntos con campo de código y botón de envío -->
                 <div class="section-bg p-4 sm:p-6 rounded-xl shadow-custom">
                     <h2 class="text-xl font-semibold text-gray-800 mb-4">Canjear Puntos</h2>
                     <p class="text-gray-600 mb-4">Introduce el código que te dio la tienda para canjear tus puntos:</p>
-                    <input
-                        type="text"
-                        id="redemptionCode"
-                        placeholder="Ingresa el código aquí"
-                        class="w-full p-3 mb-4 border input-border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <button
-                        onclick="sendRedemptionCode()"
-                        class="w-full py-3 px-4 rounded-md text-white font-semibold transition duration-300 button-primary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-                    >
+                    <input type="text" id="redemptionCode" placeholder="Ingresa el código aquí"
+                        class="w-full p-3 mb-4 border input-border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" />
+                    <button onclick="sendRedemptionCode()"
+                        class="w-full py-3 px-4 rounded-md text-white font-semibold transition duration-300 button-primary hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
                         Enviar Código
                     </button>
                     <!-- Área para mostrar mensajes al usuario (éxito, error, etc.) -->
@@ -210,7 +228,11 @@
                 </div>
             </section>
         </main>
-        @include('partials.footer')
+        <footer class="  bottom-0 w-full bg-green-900 text-white p-6 mt-12 z-50">
+            <div class="container mx-auto text-center">
+                <p class="text-sm">&copy; {{ date('Y') }} ReMat. Todos los derechos reservados.</p>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -239,7 +261,8 @@
                         // Muestra mensaje de error
                         messageBox.classList.remove('bg-blue-100', 'text-blue-700');
                         messageBox.classList.add('bg-red-100', 'text-red-700');
-                        messageBox.textContent = 'Error al canjear el código. Por favor, inténtalo de nuevo o verifica el código.';
+                        messageBox.textContent =
+                            'Error al canjear el código. Por favor, inténtalo de nuevo o verifica el código.';
                     }
                     hideMessageDelayed(); // Oculta el mensaje después de un tiempo
                 }, 2000); // Muestra el resultado después de 2 segundos
@@ -267,4 +290,5 @@
         }
     </script>
 </body>
+
 </html>
