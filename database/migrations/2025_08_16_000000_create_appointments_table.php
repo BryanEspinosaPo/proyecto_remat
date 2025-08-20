@@ -13,8 +13,8 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('ciudad');
-            $table->string('zona');
-            $table->string('codigo');
+            $table->string('zona')->nullable();
+            $table->string('codigo', 20)->nullable();
             $table->string('celular');
             $table->string('direccion');
             $table->decimal('peso', 8, 2);
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->decimal('tamano', 8, 2);
             $table->string('unidad_tamano');
             $table->string('tipo_residuo');
-            $table->date('fecha_recoleccion');
-            $table->string('hora_recoleccion');
+            $table->date('fecha_recoleccion')->nullable();
+            $table->string('hora_recoleccion', 5)->nullable();
             $table->timestamps();
         });
     }
